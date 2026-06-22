@@ -9,14 +9,44 @@ git commit -m "feat: 맑은예약 Astro 랜딩 (카카오 심사용)"
 gh repo create malgun-web --public --source=. --remote=origin --push
 ```
 
-## 2. Cloudflare Pages (Dashboard)
+## 2. Cloudflare 배포 (Worker Git 연결 시)
 
-1. [Cloudflare Dashboard](https://dash.cloudflare.com) → Workers & Pages → Create application → Pages → Connect to Git
-2. Repo: `malgun-web`
-3. Framework preset: Astro (또는 None)
-4. Build command: `npm run build`
-5. Build output: `dist`
-6. Environment: Node.js 22
+Dashboard → **malgun-web** → Settings → Build:
+
+| 항목 | 값 |
+|------|-----|
+| Build command | `npm run build` |
+| **Deploy command** | `npx wrangler deploy` |
+| Version command | **비움** |
+
+`npx wrangler pages deploy`는 **Pages 프로젝트**용입니다.  
+지금 UI가 **Worker Git**이면 `wrangler deploy` + repo의 `wrangler.toml` `[assets]`를 씁니다.
+
+### Build API token 권한 (Authentication error 10000)
+
+Settings → Build → API token → **Regenerate** 또는 [API Tokens](https://dash.cloudflare.com/profile/api-tokens)에서 `malgun-web build token` 수정:
+
+| Permission | Access |
+|------------|--------|
+| Account → **Workers Scripts** | Edit |
+| Account → **Workers Routes** | Edit |
+| Account → **Account Settings** | Read |
+
+Worker Git deploy는 **Cloudflare Pages Edit** 권한만으로는 부족할 수 있습니다.
+
+---
+
+## 2-B. Pages 전용으로 새로 만들기 (추천, 더 단순)
+
+Worker Git 말고 **Pages → Connect to Git**:
+
+| 항목 | 값 |
+|------|-----|
+| Build command | `npm run build` |
+| Build output directory | `dist` |
+| Deploy command | 없음 (Pages가 dist 자동 업로드) |
+
+Custom domain → `malgun.vibejason.com`
 
 ## 3. 커스텀 도메인
 

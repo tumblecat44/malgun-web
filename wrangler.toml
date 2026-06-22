@@ -1,3 +1,6 @@
 name = "malgun-web"
 compatibility_date = "2024-01-01"
-pages_build_output_dir = "dist"
+
+# Worker Git deploy: build → dist, then `npx wrangler deploy` (NOT pages deploy).
+[assets]
+directory = "./dist"
