@@ -1,0 +1,34 @@
+---
+import { site } from '../content/site';
+
+interface Props {
+  size?: 'sm' | 'md' | 'lg';
+}
+
+const { size = 'md' } = Astro.props;
+
+const sizes = {
+  sm: { tile: 32, radius: 9, wordmark: 15, gap: 8 },
+  md: { tile: 36, radius: 10, wordmark: 17, gap: 8 },
+  lg: { tile: 44, radius: 12, wordmark: 22, gap: 10 },
+} as const;
+
+const spec = sizes[size];
+---
+
+<a href="/" class="inline-flex items-center no-underline text-[var(--color-ink)]" aria-label={site.serviceName}>
+  <img
+    src="/favicon.png"
+    alt=""
+    width={spec.tile}
+    height={spec.tile}
+    class="shrink-0 object-cover"
+    style={`border-radius: ${spec.radius}px; box-shadow: var(--shadow-elevated);`}
+  />
+  <span
+    class="font-bold tracking-tight"
+    style={`margin-left: ${spec.gap}px; font-size: ${spec.wordmark}px; letter-spacing: -0.02em;`}
+  >
+    {site.serviceName}
+  </span>
+</a>

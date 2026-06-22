@@ -1,0 +1,16 @@
+:root {
+  --color-primary: #146ef5;
+  --color-primary-hover: #0055d4;
+  --color-ink: #080808;
+  --color-ink-2: #363636;
+  --color-muted: #ababab;
+  --color-bg: #ffffff;
+  --color-bg-soft: #f8f8f8;
+  --color-border: #d8d8d8;
+  --color-rule: #f0f0f0;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --shadow-elevated: 0 4px 14px rgba(20, 110, 245, 0.35);
+  --font-sans: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --touch-primary: 64px;
+}

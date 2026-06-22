@@ -1,0 +1,28 @@
+---
+interface Props {
+  label: string;
+  href: string;
+  variant?: 'primary' | 'secondary';
+  external?: boolean;
+}
+
+const { label, href, variant = 'primary', external = false } = Astro.props;
+
+const base =
+  'inline-flex min-h-[var(--touch-primary)] w-full items-center justify-center rounded-[var(--radius-md)] px-5 text-base font-semibold transition-transform duration-150 sm:w-auto';
+
+const variants = {
+  primary:
+    'bg-gradient-to-b from-[var(--color-primary)] to-[var(--color-primary-hover)] text-white shadow-[var(--shadow-elevated)] hover:opacity-95 active:scale-[0.98]',
+  secondary:
+    'border border-[var(--color-border)] bg-white text-[var(--color-ink)] hover:bg-[var(--color-bg-soft)] active:scale-[0.98]',
+};
+---
+
+<a
+  href={href}
+  class:list={[base, variants[variant]]}
+  {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+>
+  {label}
+</a>

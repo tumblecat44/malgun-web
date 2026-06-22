@@ -1,0 +1,151 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import C2Button from '../components/C2Button.astro';
+import Section from '../components/Section.astro';
+import { site } from '../content/site';
+
+const features = [
+  {
+    title: '예약·일정',
+    body: '월·주·일 캘린더에서 출장 예약을 한눈에 확인하고, 다중 담당자 배정과 상태 변경을 처리합니다.',
+  },
+  {
+    title: '고객·직원',
+    body: '고객 연락처와 주소를 관리하고, 직원 초대·역할·인센티브 설정으로 현장 협업을 돕습니다.',
+  },
+  {
+    title: '매출·정산',
+    body: '완료 건별 매출과 인센티브를 집계하고, CSV로 내보내어 장부 정리에 활용할 수 있습니다.',
+  },
+];
+---
+
+<BaseLayout
+  title={`${site.serviceName} | 출장 청소업체 예약 관리`}
+  description={`${site.serviceName}은 ${site.companyName}이 운영하는 ${site.serviceDescription}입니다.`}
+>
+  <header class="border-b border-[var(--color-rule)]">
+    <div class="mx-auto flex max-w-5xl items-center justify-between px-5 py-4">
+      <SiteHeader size="md" />
+      <nav class="hidden gap-6 text-sm font-medium text-[var(--color-ink-2)] sm:flex">
+        <a href="#features" class="no-underline text-[var(--color-ink-2)] hover:text-[var(--color-primary)]">기능</a>
+        <a href="#about" class="no-underline text-[var(--color-ink-2)] hover:text-[var(--color-primary)]">운영 정보</a>
+        <a href="#contact" class="no-underline text-[var(--color-ink-2)] hover:text-[var(--color-primary)]">문의</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="flex-1">
+    <section class="mx-auto grid max-w-5xl gap-10 px-5 py-12 md:grid-cols-2 md:items-center md:py-16">
+      <div>
+        <SiteHeader size="lg" />
+        <h1 class="mt-6 text-3xl font-bold leading-tight tracking-tight text-[var(--color-ink)] md:text-4xl">
+          출장 청소업체를 위한 예약 관리
+        </h1>
+        <p class="mt-4 text-base leading-relaxed text-[var(--color-ink-2)]">
+          {site.relationLine}
+        </p>
+        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+          <C2Button label="문의하기" href="#contact" />
+          <C2Button label="기능 소개" href="#features" variant="secondary" />
+        </div>
+      </div>
+
+      <div
+        class="flex min-h-[280px] items-center justify-center rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-bg-soft)] p-6"
+        aria-label="맑은예약 앱 미리보기"
+      >
+        <div class="text-center">
+          <img src="/logo.png" alt="맑은예약 앱 아이콘" width="120" height="120" class="mx-auto rounded-[var(--radius-lg)] shadow-[var(--shadow-elevated)]" />
+          <p class="mt-4 text-sm font-medium text-[var(--color-ink-2)]">
+            모바일 앱 스크린샷은 준비 중입니다.
+          </p>
+          <p class="mt-1 text-xs text-[var(--color-muted)]">
+            실제 캡처는 <code class="text-[var(--color-ink-2)]">public/screenshots/</code>에 추가하세요.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="border-t border-[var(--color-rule)] bg-[var(--color-bg-soft)] py-12 md:py-16">
+      <div class="mx-auto max-w-5xl px-5">
+        <Section title="주요 기능">
+          <div class="grid gap-4 md:grid-cols-[1.2fr_1fr_1fr]">
+            {
+              features.map((feature, index) => (
+                <article
+                  class:list={[
+                    'rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-white p-6',
+                    index === 0 && 'md:row-span-1',
+                  ]}
+                >
+                  <h3 class="mb-2 text-lg font-bold text-[var(--color-ink)]">{feature.title}</h3>
+                  <p class="text-[15px] leading-relaxed text-[var(--color-ink-2)]">{feature.body}</p>
+                </article>
+              ))
+            }
+          </div>
+        </Section>
+      </div>
+    </section>
+
+    <section id="about" class="py-12 md:py-16">
+      <div class="mx-auto max-w-5xl px-5">
+        <Section title="운영 정보">
+          <div class="rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-white p-6 md:p-8">
+            <dl class="grid gap-4 sm:grid-cols-2">
+              <div>
+                <dt class="text-xs font-semibold uppercase tracking-wide text-[var(--color-muted)]">서비스명</dt>
+                <dd class="mt-1 text-lg font-bold text-[var(--color-ink)]">{site.serviceName}</dd>
+              </div>
+              <div>
+                <dt class="text-xs font-semibold uppercase tracking-wide text-[var(--color-muted)]">운영 사업자</dt>
+                <dd class="mt-1 text-lg font-bold text-[var(--color-ink)]">{site.companyName}</dd>
+              </div>
+              <div>
+                <dt class="text-xs font-semibold uppercase tracking-wide text-[var(--color-muted)]">대표</dt>
+                <dd class="mt-1 text-base text-[var(--color-ink-2)]">{site.representative}</dd>
+              </div>
+              <div>
+                <dt class="text-xs font-semibold uppercase tracking-wide text-[var(--color-muted)]">사업자등록번호</dt>
+                <dd class="mt-1 text-base text-[var(--color-ink-2)]">{site.businessNumber}</dd>
+              </div>
+              <div class="sm:col-span-2">
+                <dt class="text-xs font-semibold uppercase tracking-wide text-[var(--color-muted)]">판매·제공 상품</dt>
+                <dd class="mt-1 text-base leading-relaxed text-[var(--color-ink-2)]">
+                  출장 청소업체 대상 B2B 예약·일정·매출 관리 모바일 애플리케이션 ({site.serviceName})
+                </dd>
+              </div>
+            </dl>
+          </div>
+        </Section>
+      </div>
+    </section>
+
+    <section id="contact" class="border-t border-[var(--color-rule)] bg-[var(--color-bg-soft)] py-12 md:py-16">
+      <div class="mx-auto max-w-5xl px-5">
+        <Section title="문의">
+          <div class="rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-white p-6 md:flex md:items-center md:justify-between md:gap-8">
+            <div>
+              <p class="text-[15px] leading-relaxed text-[var(--color-ink-2)]">
+                {site.serviceName} 도입·카카오톡 채널·기술 문의는 아래 연락처로 연락해 주세요.
+              </p>
+              <ul class="mt-4 space-y-2 text-[15px] text-[var(--color-ink-2)]">
+                <li>
+                  이메일: <a href={`mailto:${site.email}`}>{site.email}</a>
+                </li>
+                <li>
+                  전화: <a href={`tel:${site.phone.replace(/-/g, '')}`}>{site.phone}</a>
+                </li>
+              </ul>
+            </div>
+            <div class="mt-6 shrink-0 md:mt-0">
+              <C2Button label={`${site.email}으로 문의`} href={`mailto:${site.email}`} />
+            </div>
+          </div>
+        </Section>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

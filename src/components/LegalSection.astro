@@ -1,0 +1,14 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<section class="mb-8">
+  <h2 class="mb-2 text-base font-bold tracking-tight text-[var(--color-ink)]">{title}</h2>
+  <div class="text-[15px] leading-relaxed text-[var(--color-ink-2)]">
+    <slot />
+  </div>
+</section>

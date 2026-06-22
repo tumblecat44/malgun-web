@@ -1,0 +1,82 @@
+---
+import '../styles/global.css';
+import SiteFooter from '../components/SiteFooter.astro';
+import { site } from '../content/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+  path?: string;
+}
+
+const {
+  title = `${site.serviceName} | ${site.serviceDescription}`,
+  description = site.serviceDescription,
+  path = '/',
+} = Astro.props;
+
+const canonical = new URL(path, site.url).href;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      name: site.companyName,
+      url: site.url,
+      email: site.email,
+      telephone: site.phone,
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: site.address,
+        addressCountry: 'KR',
+      },
+    },
+    {
+      '@type': 'SoftwareApplication',
+      name: site.serviceName,
+      applicationCategory: 'BusinessApplication',
+      operatingSystem: 'Android, iOS',
+      description: site.serviceDescription,
+      provider: {
+        '@type': 'Organization',
+        name: site.companyName,
+      },
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'KRW',
+      },
+    },
+  ],
+};
+---
+
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#146ef5" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ko_KR" />
+    <meta property="og:site_name" content={site.serviceName} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL('/og.png', site.url).href} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL('/og.png', site.url).href} />
+    <title>{title}</title>
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body class="min-h-[100dvh] flex flex-col">
+    <slot />
+    <SiteFooter />
+  </body>
+</html>
