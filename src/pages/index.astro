@@ -2,149 +2,250 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import C2Button from '../components/C2Button.astro';
-import Section from '../components/Section.astro';
-import { site } from '../content/site';
-
-const features = [
-  {
-    title: '예약·일정',
-    body: '월·주·일 캘린더에서 출장 예약을 한눈에 확인하고, 다중 담당자 배정과 상태 변경을 처리합니다.',
-  },
-  {
-    title: '고객·직원',
-    body: '고객 연락처와 주소를 관리하고, 직원 초대·역할·인센티브 설정으로 현장 협업을 돕습니다.',
-  },
-  {
-    title: '매출·정산',
-    body: '완료 건별 매출과 인센티브를 집계하고, CSV로 내보내어 장부 정리에 활용할 수 있습니다.',
-  },
-];
+import { site, landing } from '../content/site';
 ---
 
 <BaseLayout
   title={`${site.serviceName} | 출장 청소업체 예약 관리`}
-  description={`${site.serviceName}은 ${site.companyName}이 운영하는 ${site.serviceDescription}입니다.`}
+  description={landing.hero.subline}
 >
-  <header class="border-b border-[var(--color-rule)]">
-    <div class="mx-auto flex max-w-5xl items-center justify-between px-5 py-4">
+  <header class="sticky top-0 z-20 border-b border-[var(--color-rule)] bg-white/95 backdrop-blur-sm">
+    <div class="mx-auto flex max-w-6xl items-center justify-between px-5 py-3 md:py-4">
       <SiteHeader size="md" />
-      <nav class="hidden gap-6 text-sm font-medium text-[var(--color-ink-2)] sm:flex">
-        <a href="#features" class="no-underline text-[var(--color-ink-2)] hover:text-[var(--color-primary)]">기능</a>
-        <a href="#about" class="no-underline text-[var(--color-ink-2)] hover:text-[var(--color-primary)]">운영 정보</a>
-        <a href="#contact" class="no-underline text-[var(--color-ink-2)] hover:text-[var(--color-primary)]">문의</a>
+      <nav class="hidden items-center gap-6 text-sm font-medium sm:flex">
+        <a href="#features" class="text-[var(--color-ink-2)] no-underline hover:text-[var(--color-primary)]">기능</a>
+        <a href="#how" class="text-[var(--color-ink-2)] no-underline hover:text-[var(--color-primary)]">사용 방법</a>
+        <a href="#contact" class="text-[var(--color-ink-2)] no-underline hover:text-[var(--color-primary)]">상담</a>
       </nav>
+      <a
+        href="#contact"
+        class="rounded-[var(--radius-md)] bg-[var(--color-primary)] px-4 py-2 text-sm font-semibold text-white no-underline hover:bg-[var(--color-primary-hover)]"
+      >
+        상담 요청
+      </a>
     </div>
   </header>
 
   <main class="flex-1">
-    <section class="mx-auto grid max-w-5xl gap-10 px-5 py-12 md:grid-cols-2 md:items-center md:py-16">
-      <div>
-        <SiteHeader size="lg" />
-        <h1 class="mt-6 text-3xl font-bold leading-tight tracking-tight text-[var(--color-ink)] md:text-4xl">
-          출장 청소업체를 위한 예약 관리
+    <!-- Hero -->
+    <section class="mx-auto grid max-w-6xl gap-10 px-5 pb-14 pt-10 md:grid-cols-2 md:items-center md:gap-12 md:pb-16 md:pt-14">
+      <div class="max-w-xl">
+        <p class="mb-3 text-sm font-semibold text-[var(--color-primary)]">출장 청소업체 전용 예약 앱</p>
+        <h1 class="text-[2rem] font-bold leading-[1.15] tracking-tight text-[var(--color-ink)] md:text-5xl">
+          {landing.hero.headline}
         </h1>
-        <p class="mt-4 text-base leading-relaxed text-[var(--color-ink-2)]">
-          {site.relationLine}
+        <p class="mt-4 max-w-[65ch] text-base leading-relaxed text-[var(--color-ink-2)] md:text-lg">
+          {landing.hero.subline}
         </p>
-        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-          <C2Button label="문의하기" href="#contact" />
-          <C2Button label="기능 소개" href="#features" variant="secondary" />
+        <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+          <C2Button label="무료로 시작하기" href="#contact" />
+          <C2Button label="데모 보기" href="#how" variant="secondary" />
+          <C2Button label="상담 요청하기" href={`mailto:${site.email}`} variant="secondary" />
         </div>
       </div>
-
-      <div
-        class="flex min-h-[280px] items-center justify-center rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-bg-soft)] p-6"
-        aria-label="맑은예약 앱 미리보기"
-      >
-        <div class="text-center">
-          <img src="/logo.png" alt="맑은예약 앱 아이콘" width="120" height="120" class="mx-auto rounded-[var(--radius-lg)] shadow-[var(--shadow-elevated)]" />
-          <p class="mt-4 text-sm font-medium text-[var(--color-ink-2)]">
-            모바일 앱 스크린샷은 준비 중입니다.
-          </p>
-          <p class="mt-1 text-xs text-[var(--color-muted)]">
-            실제 캡처는 <code class="text-[var(--color-ink-2)]">public/screenshots/</code>에 추가하세요.
-          </p>
+      <div class="relative mx-auto w-full max-w-md md:max-w-none">
+        <div
+          class="overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-bg-soft)] shadow-[0_24px_60px_rgba(8,8,8,0.08)]"
+        >
+          <img
+            src="/screenshots/app-preview.png"
+            alt="맑은예약 앱 예약 캘린더 화면"
+            width="390"
+            height="844"
+            class="mx-auto block w-full max-w-[320px] object-cover object-top md:max-w-[360px]"
+            loading="eager"
+          />
         </div>
       </div>
     </section>
 
-    <section id="features" class="border-t border-[var(--color-rule)] bg-[var(--color-bg-soft)] py-12 md:py-16">
-      <div class="mx-auto max-w-5xl px-5">
-        <Section title="주요 기능">
-          <div class="grid gap-4 md:grid-cols-[1.2fr_1fr_1fr]">
-            {
-              features.map((feature, index) => (
-                <article
-                  class:list={[
-                    'rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-white p-6',
-                    index === 0 && 'md:row-span-1',
-                  ]}
-                >
-                  <h3 class="mb-2 text-lg font-bold text-[var(--color-ink)]">{feature.title}</h3>
-                  <p class="text-[15px] leading-relaxed text-[var(--color-ink-2)]">{feature.body}</p>
-                </article>
-              ))
-            }
-          </div>
-        </Section>
+    <!-- Pain -->
+    <section class="border-y border-[var(--color-rule)] bg-[var(--color-bg-soft)] py-14 md:py-20">
+      <div class="mx-auto max-w-6xl px-5">
+        <div class="max-w-2xl">
+          <h2 class="text-2xl font-bold tracking-tight text-[var(--color-ink)] md:text-3xl">
+            아직도 예약을 이렇게 관리하고 있나요?
+          </h2>
+          <p class="mt-3 text-[var(--color-ink-2)]">현장 사장님들이 자주 겪는 상황입니다.</p>
+        </div>
+        <ul class="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {
+            landing.pains.map((pain) => (
+              <li class="flex gap-3 rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white px-4 py-4 text-[15px] leading-relaxed text-[var(--color-ink-2)]">
+                <span class="mt-0.5 shrink-0 font-bold text-[var(--color-primary)]" aria-hidden="true">·</span>
+                <span>{pain}</span>
+              </li>
+            ))
+          }
+        </ul>
       </div>
     </section>
 
-    <section id="about" class="py-12 md:py-16">
-      <div class="mx-auto max-w-5xl px-5">
-        <Section title="운영 정보">
-          <div class="rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-white p-6 md:p-8">
-            <dl class="grid gap-4 sm:grid-cols-2">
-              <div>
-                <dt class="text-xs font-semibold uppercase tracking-wide text-[var(--color-muted)]">서비스명</dt>
-                <dd class="mt-1 text-lg font-bold text-[var(--color-ink)]">{site.serviceName}</dd>
-              </div>
-              <div>
-                <dt class="text-xs font-semibold uppercase tracking-wide text-[var(--color-muted)]">운영 사업자</dt>
-                <dd class="mt-1 text-lg font-bold text-[var(--color-ink)]">{site.companyName}</dd>
-              </div>
-              <div>
-                <dt class="text-xs font-semibold uppercase tracking-wide text-[var(--color-muted)]">대표</dt>
-                <dd class="mt-1 text-base text-[var(--color-ink-2)]">{site.representative}</dd>
-              </div>
-              <div>
-                <dt class="text-xs font-semibold uppercase tracking-wide text-[var(--color-muted)]">사업자등록번호</dt>
-                <dd class="mt-1 text-base text-[var(--color-ink-2)]">{site.businessNumber}</dd>
-              </div>
-              <div class="sm:col-span-2">
-                <dt class="text-xs font-semibold uppercase tracking-wide text-[var(--color-muted)]">판매·제공 상품</dt>
-                <dd class="mt-1 text-base leading-relaxed text-[var(--color-ink-2)]">
-                  출장 청소업체 대상 B2B 예약·일정·매출 관리 모바일 애플리케이션 ({site.serviceName})
-                </dd>
-              </div>
-            </dl>
-          </div>
-        </Section>
+    <!-- Features -->
+    <section id="features" class="py-14 md:py-20">
+      <div class="mx-auto max-w-6xl px-5">
+        <div class="mb-10 max-w-2xl">
+          <h2 class="text-2xl font-bold tracking-tight text-[var(--color-ink)] md:text-3xl">
+            예약 관리에 꼭 필요한 기능만
+          </h2>
+          <p class="mt-3 text-[var(--color-ink-2)]">
+            미용실용 앱처럼 복잡하지 않습니다. 출장 청소 현장에 맞춰 골랐습니다.
+          </p>
+        </div>
+        <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {
+            landing.features.map((feature, i) => (
+              <article
+                class:list={[
+                  'rounded-[var(--radius-lg)] border border-[var(--color-border)] p-6',
+                  i === 0 && 'lg:col-span-2 lg:flex lg:gap-8 lg:p-8',
+                ]}
+              >
+                <div class:list={[i === 0 && 'lg:max-w-sm']}>
+                  <h3 class="text-lg font-bold text-[var(--color-ink)]">{feature.title}</h3>
+                  <p class="mt-2 text-[15px] leading-relaxed text-[var(--color-ink-2)]">{feature.body}</p>
+                </div>
+              </article>
+            ))
+          }
+        </div>
       </div>
     </section>
 
-    <section id="contact" class="border-t border-[var(--color-rule)] bg-[var(--color-bg-soft)] py-12 md:py-16">
-      <div class="mx-auto max-w-5xl px-5">
-        <Section title="문의">
-          <div class="rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-white p-6 md:flex md:items-center md:justify-between md:gap-8">
-            <div>
-              <p class="text-[15px] leading-relaxed text-[var(--color-ink-2)]">
-                {site.serviceName} 도입·카카오톡 채널·기술 문의는 아래 연락처로 연락해 주세요.
-              </p>
-              <ul class="mt-4 space-y-2 text-[15px] text-[var(--color-ink-2)]">
-                <li>
-                  이메일: <a href={`mailto:${site.email}`}>{site.email}</a>
-                </li>
-                <li>
-                  전화: <a href={`tel:${site.phone.replace(/-/g, '')}`}>{site.phone}</a>
-                </li>
-              </ul>
-            </div>
-            <div class="mt-6 shrink-0 md:mt-0">
-              <C2Button label={`${site.email}으로 문의`} href={`mailto:${site.email}`} />
+    <!-- How it works -->
+    <section id="how" class="border-t border-[var(--color-rule)] bg-[var(--color-ink)] py-14 text-white md:py-20">
+      <div class="mx-auto max-w-6xl px-5">
+        <div class="mb-10 max-w-2xl">
+          <h2 class="text-2xl font-bold tracking-tight md:text-3xl">전화 받고 30초 만에 예약 등록</h2>
+          <p class="mt-3 text-white/75">차 안에서도, 현장에서도 빠르게 끝나는 흐름입니다.</p>
+        </div>
+        <ol class="grid gap-4 md:grid-cols-5 md:gap-3">
+          {
+            landing.flow.map((item) => (
+              <li class="rounded-[var(--radius-md)] border border-white/10 bg-white/5 p-5">
+                <span class="mt-0.5 shrink-0 text-xs font-bold uppercase tracking-wider text-[var(--color-primary-light)]">
+                  Step {item.step}
+                </span>
+                <h3 class="mt-2 font-bold leading-snug">{item.title}</h3>
+                <p class="mt-2 text-sm leading-relaxed text-white/70">{item.body}</p>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+    </section>
+
+    <!-- Specialty -->
+    <section class="py-14 md:py-20">
+      <div class="mx-auto grid max-w-6xl gap-10 px-5 md:grid-cols-2 md:items-center">
+        <div>
+          <h2 class="text-2xl font-bold tracking-tight text-[var(--color-ink)] md:text-3xl">
+            출장 청소 업체에 맞춘 예약 관리
+          </h2>
+          <p class="mt-4 leading-relaxed text-[var(--color-ink-2)]">
+            미용실, 병원 예약과 다르게 출장 청소는 주소, 이동 시간, 작업 종류, 현장 메모가
+            중요합니다. {site.serviceName}은 그 흐름에 맞춰 설계했습니다.
+          </p>
+        </div>
+        <ul class="grid gap-2 sm:grid-cols-2">
+          {
+            landing.specialty.map((item) => (
+              <li class="rounded-[var(--radius-md)] bg-[var(--color-bg-soft)] px-4 py-3 text-sm font-medium text-[var(--color-ink-2)]">
+                {item}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+
+    <!-- Before / After -->
+    <section class="border-y border-[var(--color-rule)] bg-[var(--color-bg-soft)] py-14 md:py-20">
+      <div class="mx-auto max-w-6xl px-5">
+        <h2 class="mb-8 text-2xl font-bold tracking-tight text-[var(--color-ink)] md:text-3xl">
+          바꾸면 이렇게 달라집니다
+        </h2>
+        <div class="overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-white">
+          <div class="hidden grid-cols-2 bg-[var(--color-bg-soft)] text-sm font-bold text-[var(--color-ink)] md:grid">
+            <div class="px-6 py-4">기존 방식</div>
+            <div class="border-l border-[var(--color-rule)] px-6 py-4 text-[var(--color-primary)]">
+              {site.serviceName} 사용 후
             </div>
           </div>
-        </Section>
+          {
+            landing.compare.map((row) => (
+              <div class="grid border-t border-[var(--color-rule)] md:grid-cols-2">
+                <div class="px-5 py-4 text-[15px] text-[var(--color-ink-2)] md:px-6">
+                  <span class="mb-1 block text-xs font-semibold text-[var(--color-muted)] md:hidden">기존</span>
+                  {row.before}
+                </div>
+                <div class="border-t border-[var(--color-rule)] bg-[rgba(20,110,245,0.04)] px-5 py-4 text-[15px] font-medium text-[var(--color-ink)] md:border-l md:border-t-0 md:px-6">
+                  <span class="mb-1 block text-xs font-semibold text-[var(--color-primary)] md:hidden">이후</span>
+                  {row.after}
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- Outcomes -->
+    <section class="py-14 md:py-20">
+      <div class="mx-auto grid max-w-6xl gap-10 px-5 md:grid-cols-[1fr_1.2fr] md:items-start">
+        <div>
+          <h2 class="text-2xl font-bold tracking-tight text-[var(--color-ink)] md:text-3xl">
+            사장님이 얻는 결과
+          </h2>
+          <p class="mt-3 text-[var(--color-ink-2)]">기능이 아니라, 하루 일과가 어떻게 바뀌는지가 중요합니다.</p>
+        </div>
+        <ul class="space-y-3">
+          {
+            landing.outcomes.map((item) => (
+              <li class="flex gap-3 border-b border-[var(--color-rule)] pb-3 text-[15px] leading-relaxed text-[var(--color-ink-2)] last:border-0">
+                <span class="shrink-0 font-bold text-[var(--color-primary)]" aria-hidden="true">✓</span>
+                {item}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+
+    <!-- Trust -->
+    <section class="border-t border-[var(--color-rule)] bg-[var(--color-bg-soft)] py-14 md:py-16">
+      <div class="mx-auto max-w-3xl px-5 text-center">
+        <blockquote class="text-lg leading-relaxed text-[var(--color-ink-2)] md:text-xl">
+          “{landing.trust}”
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section id="contact" class="py-14 md:py-20">
+      <div class="mx-auto max-w-6xl px-5">
+        <div
+          class="rounded-[var(--radius-lg)] bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-primary-hover)] px-6 py-10 text-center text-white md:px-12 md:py-14"
+        >
+          <h2 class="text-2xl font-bold md:text-3xl">예약 정리, 오늘부터 시작하세요</h2>
+          <p class="mx-auto mt-3 max-w-lg text-white/85">
+            베타 사용·도입 상담을 받고 있습니다. 업체 규모와 일정에 맞춰 안내드립니다.
+          </p>
+          <div class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <a
+              href={`mailto:${site.email}?subject=${encodeURIComponent(`${site.serviceName} 상담 요청`)}`}
+              class="inline-flex min-h-[var(--touch-primary)] min-w-[200px] items-center justify-center rounded-[var(--radius-md)] bg-white px-6 text-base font-semibold text-[var(--color-primary)] no-underline transition-transform active:scale-[0.98]"
+            >
+              상담 요청하기
+            </a>
+            <a
+              href={`tel:${site.phone.replace(/-/g, '')}`}
+              class="inline-flex min-h-[var(--touch-primary)] min-w-[200px] items-center justify-center rounded-[var(--radius-md)] border border-white/30 px-6 text-base font-semibold text-white no-underline transition-transform active:scale-[0.98]"
+            >
+              {site.phone}
+            </a>
+          </div>
+        </div>
       </div>
     </section>
   </main>
