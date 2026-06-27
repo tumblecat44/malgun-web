@@ -1,12 +1,10 @@
 ---
 interface Props {
-  children: string;
+  children: any;
 }
-
-const { children } = Astro.props;
 ---
 
 <p class="mb-2 flex gap-2 text-[15px] leading-relaxed text-[var(--color-ink-2)]">
   <span class="shrink-0">·</span>
-  <span>{children}</span>
+  <span><slot /></span>
 </p>
